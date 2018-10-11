@@ -12,7 +12,7 @@ months = { 1 : "January",
         'a':1,
         12 : "December" 
         } 
-
+'''
 for m in months:
     if (type(m) == str):
         continue
@@ -31,3 +31,9 @@ print months
 
 # length is asme as list
 print "lentgh", len(months)
+'''
+
+# Add entry to dict
+months['13'] = 'test'
+
+print months

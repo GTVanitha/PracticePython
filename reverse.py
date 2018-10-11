@@ -1,12 +1,14 @@
 
 import pprint
 
-str = " hello "
+str = "hello is the example!"
 
 
 r_str = reversed(str)
 
 print ''.join(r_str)
+
+print "-------"
 
 # only the fist letter of first word
 print str.capitalize()
