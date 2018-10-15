@@ -1,23 +1,76 @@
 
-mat3 = [[1, 1, 0],
-        [1, 1, 0],
-        [2, 2, 0]]
-
-mat4 = [[1,2,2,3],
-        [2,2,3,1],
-        [3,3,3,3],
-        [3,4,4,4]]
-'''
-0,0 0,1 0,2
-1,0 1,1 1,2
-2,0 2,1 2,2
-'''
-
 inp = int(input("Enter the number of matrix 3x3 or 4x4"))
 
-game = mat3 if(inp == 3) else mat4
-# (0,0) (0,1) (0,2)
-print game
+# ========================================================================================================= #
+# subroutines
+initial =[]
+def create_initial(inp):
+    for r in range(inp):
+        inner_lis = []
+        for c in range(inp):
+            val = "%d,%d" %(r,c)
+            inner_lis.append(val)
+        initial.append(inner_lis) 
+
+# ========================================================================================================= #
+
+def print_board(game_board):
+    for g in game_board:
+        print g
+
+# ========================================================================================================= #
+
+def player_inp(player, msg=''):
+    if (msg):
+        print msg
+
+    print player, "move \n Enter the coordinates to enter a value in board(eg: 0,1) :" 
+    co_ord = raw_input();
+    
+    co_ord_arr = co_ord.split(',')
+    return co_ord_arr
+
+# ========================================================================================================= #
+
+# Calling 
+create_initial(inp)
+print_board(initial)
+
+# ========================================================================================================= #
+# getting input from user 
+
+msg = ''
+i = 0;
+while i < inp*inp:
+    # if they already gave inout, dec i and call input fuction 
+    if (i%2 == 0):
+        # player 1
+            val = player_inp('player1', msg)
+            i1 = int(val[0])
+            j1 = int(val[1])
+            if (initial[i1][j1] == 'X' or initial[i1][j1] == 'O'):
+                msg = 'Invalid input. please give another input'
+                continue
+            else:
+                initial[i1][j1] = 'X'
+    else:
+        #player 2
+        val = player_inp('player2', msg)
+        m = int(val[0])
+        n = int(val[1])
+        if (initial[m][n] == 'X' or initial[m][n] == 'O'):
+            msg = 'Invalid input. please give another input'
+            continue
+        else:
+            initial[m][n] = 'O'
+
+    print_board(initial)
+    i+=1
+
+# ========================================================================================================= #
+
+game = initial
+
 
 def winner_check(which, table):
     winner = []
@@ -27,12 +80,15 @@ def winner_check(which, table):
             winner.append(i[0])
     
     if len(winner) >= 1:
+        winner = set(winner)
         print "winner in %s wise check is: %s " %(which, winner)
     else:
         print "no winner in %s wise check" %(which)
         
 #row wise check
 winner_check('row', game)
+
+# ========================================================================================================= #
 
 col= []
 i = 0
@@ -46,6 +102,8 @@ for r in range(inp):
 
 # col wise check
 winner_check('col', col)
+
+# ========================================================================================================= #
 
 #diagonal array
 
@@ -68,35 +126,6 @@ diag.append(right_dia)
 
 winner_check('diagonal', diag)
 
-
-
-'''
-# To check row wise
-for i in range(inp):
-    print "outer:"
-    for j in range(inp):
-        print "inner", i, j
-        # row wise
-        if (game[i][j] == game[i][j+1]):
-            if (game[i][j] == game[i][j+2]):
-                print "winner is ", game[i][j]
-                winner = 1
-        print "row check done"
-        i = 0
-        if (winner != 1):  
-            if (game[i][j] == game[i+1][j]):
-                if (game[i][j] == game[i+2][j]):
-                    print "winner is ", game[i][j]
-                    winner = 1
-        print "col check done"
-
-        if (winner == 1):
-            break
-        else:
-            print "No winner break"
-            break
-
-
-'''
+# ========================================================================================================= #
 
 
